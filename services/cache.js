@@ -24,10 +24,14 @@ mongoose.Query.prototype.exec = function () {
   const key = Object.assign({}, this.getQuery(), {
     collection: this.mongooseCollection.name
   });
+  // console.log('====================================');
+  // console.log(key);
+  // console.log('====================================');
 
-  console.log('====================================');
-  console.log(key);
-  console.log('====================================');
+  // verify we have value for 'key' in redis
+  // if yes, return key
+  //otherwise issue query and store result in redis
+
 
   return exec.apply(this, arguments);
 }
