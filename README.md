@@ -20,3 +20,11 @@ Result:> { red: 'rojo' }
 using user.id as UUID.
 
 redis does not offer native support for returning promises. Could use callbacks... but using promisify in node util lib.
+
+to clear redis cache:
+
+> node
+> const redis = require('redis')
+> const redisUrl = 'redis://127.0.0.1:6379'
+> const client = redis.createClient(redisUrl)
+> client.flushall()
