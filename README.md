@@ -28,3 +28,13 @@ to clear redis cache:
 > const redisUrl = 'redis://127.0.0.1:6379'
 > const client = redis.createClient(redisUrl)
 > client.flushall()
+
+checks to see if query has been fetched by redis:
+
+query.exec((err, result) => console.log(result));
+same as...
+query.then(result => console.log(result));
+same as...
+const result = await query;
+
+hooked into mongoose for cached query

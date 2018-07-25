@@ -13,7 +13,7 @@ module.exports = app => {
     res.send(blog);
   });
 
-  // writing test for redis handler
+  // writing test for redis/req handler
   app.get('/api/blogs', requireLogin, async (req, res) => {
     const redis = require('redis');
     const redisUrl = 'redis://127.0.0.1:6379';
