@@ -18,8 +18,13 @@ module.exports = app => {
     const redis = require('redis');
     const redisUrl = 'redis://127.0.0.1:6379';
     const client = redis.createClient(redisUrl);
+    const util = require('util');
+    // creates promise/extends function
+    client.get = util.promisify(client.get);
 
     // any cached data in redis related to this query?
+    const cachedBlogs = await client.get(req.user.id);
+
     // yes, responds immediately and return
     // no, respond to req and update cache to store data
 

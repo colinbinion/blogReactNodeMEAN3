@@ -16,3 +16,7 @@ terminal (redis client):
 redis will only store num and letter. use JSON.stringify as workaround. i.e.: client.set('colors', JSON.stringify({ red: 'rojo' }))
 result returns a JSON format instead of converting to an object. i.e.: client.get('colors', (err, val) => console.log(JSON.parse(val)))
 Result:> { red: 'rojo' }
+
+using user.id as UUID.
+
+redis does not offer native support for returning promises. Could use callbacks... but using promisify in node util lib.
