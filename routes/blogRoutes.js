@@ -26,13 +26,18 @@ module.exports = app => {
     const cachedBlogs = await client.get(req.user.id);
 
     // yes, responds immediately and return
-    // no, respond to req and update cache to store data
+    if (cachedBlogs) {
+      return res.send(cachedBlogs);
+    }
+
+    // no, respond to req and update cache to store data.  else statement not needed bc the return statement will not continue on. make sure to stringify and parse for redis
 
     const blogs = await Blog.find({
       _user: req.user.id
     });
 
     res.send(blogs);
+    client.set(req.user.id, blogs);
   });
 
   app.post('/api/blogs', requireLogin, async (req, res) => {
