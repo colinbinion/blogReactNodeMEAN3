@@ -8,5 +8,9 @@ mongoose.Query.prototype.exec = function () {
   console.log('====================================');
   console.log('ABOUT TO RUN A QUERY');
   console.log('====================================');
+  console.log(this.getQuery());
+  console.log('====================================');
+  console.log(this.mongooseCollection.name);
+  console.log('====================================');
   return exec.apply(this, arguments);
 }
