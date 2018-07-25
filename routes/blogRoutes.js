@@ -13,14 +13,24 @@ module.exports = app => {
     res.send(blog);
   });
 
+  // writing test for redis handler
   app.get('/api/blogs', requireLogin, async (req, res) => {
-    const blogs = await Blog.find({ _user: req.user.id });
+    const redis = require('redis');
+    const redisUrl = 'redis://127.0.0.1:6379';
+    const client = redis.createClient(redisUrl);
+
+    const blogs = await Blog.find({
+      _user: req.user.id
+    });
 
     res.send(blogs);
   });
 
   app.post('/api/blogs', requireLogin, async (req, res) => {
-    const { title, content } = req.body;
+    const {
+      title,
+      content
+    } = req.body;
 
     const blog = new Blog({
       title,
