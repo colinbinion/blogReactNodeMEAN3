@@ -11,6 +11,7 @@ client.get = util.promisify(client.get);
 const exec = mongoose.Query.prototype.exec;
 
 mongoose.Query.prototype.cache = function () {
+  this.useCache = true;
   return this;
 }
 
@@ -59,7 +60,7 @@ mongoose.Query.prototype.exec = async function () {
   const result = await exec.apply(this, arguments);
 
   //sets stringified results to redis client key...
-  client.set(key, JSON.stringify(result));
+  client.set(key, JSON.stringify(result), 'EX', 10);
 
   return result;
   // console.log('====================================');
