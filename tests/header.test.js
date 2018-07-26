@@ -12,7 +12,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  await browser.close();
+  // await browser.close();
 });
 
 test('header has correct text', async () => {
@@ -36,8 +36,8 @@ test('click login initiates oauth flow', async () => {
   expect(url).toMatch(/accounts\.google\.com/)
 });
 
-test('signed in shows logout button', async () => {
-  const id = '5b566378388f8b26e5729aa5';
+test.only('signed in shows logout button', async () => {
+  const id = 'eyJwYXNzcG9ydCI6e319';
 
   const Buffer = require('safe-buffer').Buffer;
   const sessionObject = {
@@ -52,7 +52,16 @@ test('signed in shows logout button', async () => {
   const keygrip = new Keygrip([keys.cookieKey]);
   const sig = keygrip.sign('session=', +sessionString);
 
-  console.log('====================================');
-  console.log(sessionString, sig);
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(sessionString, sig);
+  // console.log('====================================');
+  await page.setCookie({
+    name: 'session',
+    value: sessionString
+  });
+  await page.setCookie({
+    name: 'session.sig',
+    value: sig
+  });
+  await page.goto('localhost:3000');
 });
