@@ -12,7 +12,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  // await browser.close();
+  await browser.close();
 });
 
 test('header has correct text', async () => {
@@ -36,25 +36,25 @@ test('click login initiates oauth flow', async () => {
   expect(url).toMatch(/accounts\.google\.com/)
 });
 
-test.only('signed in shows logout button', async () => {
+test('signed in shows logout button', async () => {
   const id = '5b566378388f8b26e5729aa5';
 
-  const Buffer = require('safe-buffer').Buffer;
-  const sessionObject = {
-    passport: {
-      user: id
-    }
-  };
-  const sessionString = Buffer.from(JSON.stringify(sessionObject)).toString('base64');
+  // const Buffer = require('safe-buffer').Buffer;
+  // const sessionObject = {
+  //   passport: {
+  //     user: id
+  //   }
+  // };
+  // const sessionString = Buffer.from(JSON.stringify(sessionObject)).toString('base64');
 
-  const Keygrip = require('keygrip');
-  const keys = require('../config/keys');
-  const keygrip = new Keygrip([keys.cookieKey]);
-  const sig = keygrip.sign('session=', +sessionString);
+  // const Keygrip = require('keygrip');
+  // const keys = require('../config/keys');
+  // const keygrip = new Keygrip([keys.cookieKey]);
+  // const sig = keygrip.sign('session=', +sessionString);
 
-  console.log('====================================');
-  console.log(sessionString, sig);
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(sessionString, sig);
+  // console.log('====================================');
 
   await page.setCookie({
     name: 'session',
