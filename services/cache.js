@@ -10,15 +10,15 @@ client.get = util.promisify(client.get);
 // get ref to existing default .exec function defined on a mongoose query.
 const exec = mongoose.Query.prototype.exec;
 
+mongoose.Query.prototype.cache = function () {
+  return this;
+}
+
 // overwrite and execute additional code when query is executed.
 mongoose.Query.prototype.exec = async function () {
-  // console.log('====================================');
-  // console.log('ABOUT TO RUN A QUERY');
-  // console.log('====================================');
-  // console.log(this.getQuery());
-  // console.log('====================================');
-  // console.log(this.mongooseCollection.name);
-  // console.log('====================================');
+  if (!this.useCache) {
+    return exec.apply(this, arguments);
+  }
 
   // don't modify this.getQuery directly.  It will modify the underlying code. get object passed in to getQuery and add collection name.
   const key = JSON.stringify(Object.assign({}, this.getQuery(), {
