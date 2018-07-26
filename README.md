@@ -38,3 +38,5 @@ same as...
 const result = await query;
 
 hooked into mongoose for cached query
+
+jest runs tests in parallel
