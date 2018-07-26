@@ -15,7 +15,7 @@ afterEach(async () => {
   await browser.close();
 });
 
-test('launching browser', async () => {
+test('header has correct text', async () => {
   const text = await page.$eval('a.brand-logo', el => el.innerHTML);
   // const browser = await puppeteer.launch({
   //   headless: false
@@ -26,4 +26,14 @@ test('launching browser', async () => {
   // const text = await page.$eval('a.brand-logo', el => el.innerHTML);
 
   expect(text).toEqual('Blogster');
+});
+
+test('click login initiates oauth flow', async () => {
+  await page.click('.right a');
+
+  const url = await page.url();
+
+  console.log('====================================');
+  console.log(url);
+  console.log('====================================');
 });
