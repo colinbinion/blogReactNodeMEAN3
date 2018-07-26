@@ -38,7 +38,8 @@ mongoose.Query.prototype.exec = async function () {
   }
   //otherwise issue query and store result in redis
   const result = await exec.apply(this, arguments);
-  console.log('====================================');
-  console.log(result.validate);
-  console.log('====================================');
+  return result;
+  // console.log('====================================');
+  // console.log(result.validate);
+  // console.log('====================================');
 }
