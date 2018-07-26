@@ -61,5 +61,4 @@ typings/
 .next
 
 # personal
-.gitignore
 .DS_Store
