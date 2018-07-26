@@ -11,6 +11,10 @@ beforeEach(async () => {
 
 });
 
+afterEach(async () => {
+  await browser.close();
+});
+
 test('launching browser', async () => {
   const text = await page.$eval('a.brand-logo', el => el.innerHTML);
   // const browser = await puppeteer.launch({
