@@ -51,7 +51,9 @@ mongoose.Query.prototype.exec = async function () {
     // return doc;
 
     // using terenary expression as +- checker
-    Array.isArray(doc) ? its an array : its an object;
+    return Array.isArray(doc) ?
+      doc.map(d => new this.model(d)) :
+      new this.model(doc);
   }
   //otherwise issue query and store result in redis
   const result = await exec.apply(this, arguments);
