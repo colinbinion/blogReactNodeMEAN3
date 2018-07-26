@@ -34,8 +34,8 @@ mongoose.Query.prototype.exec = async function () {
   if (cacheValue) {
     // patches model instance and parses to document for mongoDB
 
-
-    const doc = new this.model(JSON.parse(cacheValue));
+    const doc = JSON.parse(cacheValue);
+    // const doc = new this.model(JSON.parse(cacheValue));
     // same as:
     // new blog({
     //   title: 'Hi',
@@ -48,7 +48,10 @@ mongoose.Query.prototype.exec = async function () {
 
     //returning parsed cache from redis
     // return JSON.parse(cacheValue);
-    return doc;
+    // return doc;
+
+    // using terenary expression as +- checker
+    Array.isArray(doc) ? its an array : its an object;
   }
   //otherwise issue query and store result in redis
   const result = await exec.apply(this, arguments);
