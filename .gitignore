@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+
+# personal
+.gitignore
+.DS_Store
