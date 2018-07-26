@@ -37,7 +37,7 @@ test('click login initiates oauth flow', async () => {
 });
 
 test.only('signed in shows logout button', async () => {
-  const id = 'eyJwYXNzcG9ydCI6e319';
+  const id = '5b566378388f8b26e5729aa5';
 
   const Buffer = require('safe-buffer').Buffer;
   const sessionObject = {
@@ -52,9 +52,10 @@ test.only('signed in shows logout button', async () => {
   const keygrip = new Keygrip([keys.cookieKey]);
   const sig = keygrip.sign('session=', +sessionString);
 
-  // console.log('====================================');
-  // console.log(sessionString, sig);
-  // console.log('====================================');
+  console.log('====================================');
+  console.log(sessionString, sig);
+  console.log('====================================');
+
   await page.setCookie({
     name: 'session',
     value: sessionString
@@ -63,5 +64,9 @@ test.only('signed in shows logout button', async () => {
     name: 'session.sig',
     value: sig
   });
-  await page.goto('localhost:3000');
+  await page.reload('localhost:3000');
+  await page.waitFor('a[href="/auth/logout"]');
+
+  const text = await page.$eval('a[href="/auth/logout"]', el => el.innerHTML);
+  expect(text).toEqual('Logout');
 });
